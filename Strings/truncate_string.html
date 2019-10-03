@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Truncate string with needed maxlength</title>
+</head>
+<body>
+<script>
+
+    // FN truncate(str,maxlength) substings string str with maximum maxlength letters
+    function truncate(str, maxlength){
+        return str.length > maxlength ? str.substr(0, maxlength-1) + '...' : str;
+    }
+
+    alert( truncate("Вот, что мне хотелось бы сказать на эту тему:", 20) );
+
+
+</script>
+</body>
+</html>

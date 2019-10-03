@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Check for spam words in a string</title>
+</head>
+<body>
+<script>
+
+    // FN checkSpam(str) returns true/false if spam words word1, word2 contains in str
+    let str = "free xxxxx";
+
+    function checkSpam(str){
+        let word1 = "viagra",
+            word2 = "xxx";
+
+        return ( str.toLowerCase().indexOf(word1)+1  || str.toLowerCase().indexOf(word2)+1 ) ? true : false
+
+    }
+
+    alert( checkSpam('buy ViAgRA now') );
+
+</script>
+</body>
+</html>

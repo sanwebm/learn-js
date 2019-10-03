@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Extracts number from string $100</title>
+</head>
+<body>
+<script>
+
+    // FN extractCurrencyValue(str) extracts number from string with mask, such as $120
+    function extractCurrencyValue(str){
+        return +str.slice(1);
+    }
+
+    alert( extractCurrencyValue("$1790") );
+
+
+</script>
+</body>
+</html>
