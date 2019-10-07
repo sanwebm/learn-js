@@ -1,5 +1,3 @@
-// Code goes here
-
 'use strict';
 
 let a = {
@@ -22,12 +20,10 @@ let b = {
 
 
 
-//console.log(a === b); // Two objects are equal if they have the same link to one object, false
-
-console.log( deepEqual4(a, b) );
+deepEqual(a, b);
 
 
-function deepEqual4(a, b) {
+function deepEqual(a, b) {
 
     // проходим по всем свойствам объекта a -- первый уровень
     for(let key in a){
