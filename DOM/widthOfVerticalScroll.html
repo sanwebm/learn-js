@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Width of vertical Scroll of element</title>
+    <style>
+        div{
+            width: 300px;
+            height: 150px;
+            padding: 20px;
+            border: 25px solid #e2e2e2;
+            overflow: auto;
+        }
+        #hide{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<div id="myScroll">
+    - Width of Scroll. elem.offsetWidth - (elem.clientLeft * 2) - elem.clientWidth. Но с getComputedStyle(elem).width ситуация иная. Некоторые браузеры (например, Chrome) возвращают реальную внутреннюю ширину с вычетом ширины полосы прокрутки, а некоторые (например, Firefox) – именно CSS-свойство (игнорируя полосу прокрутки). Эти кроссбраузерные отличия – ещё один повод не использовать getComputedStyle, а использовать свойства-метрики.
+    Если ваш браузер показывает полосу прокрутки (например, под Windows почти все браузеры так делают), то вы можете протестировать это сами, нажав на кнопку в ифрейме ниже.
+</div>
+<div id="hide"></div>
+<script>
+    let e = document.querySelector('#myScroll');
+    let scrollWidth = getScrollWidth(e);
+    e.insertAdjacentText('afterbegin',scrollWidth);
+    console.log(scrollWidth);
+
+    function getScrollWidth(elem){
+
+         if ( isHidden(elem) ) {
+            return '0px'
+        }
+
+        return elem.offsetWidth - (elem.clientLeft * 2) - elem.clientWidth + 'px';
+
+
+        function isHidden(elem) {
+            return !elem.offsetWidth && !elem.offsetHeight;
+        }
+    }
+
+</script>
+</body>
+</html>

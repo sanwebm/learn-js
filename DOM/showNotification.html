@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>showNotification function creates note which hides after 1.5 sec</title>
+    <style>
+        .notification{
+            position: fixed;
+            padding: 1em;
+            z-index: 2;
+            border-radius: 5px 20px 5px;
+            background: #BADA55;
+            color: #000;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .welcome{
+            border: 2px solid #9c27b0;
+        }
+    </style>
+</head>
+<body>
+<script>
+
+    function showNotification({top=0, right=0, className, html}){
+        let div = document.createElement("div");
+            div.classList.add('notification');
+
+        if (className) {
+            div.classList.add(className);
+        }
+
+        div.style.top = top + 'px';
+        div.style.right = right + 'px';
+
+        if (html) {
+            div.textContent = html;
+        }
+
+        document.body.insertAdjacentElement('beforeend', div);
+
+        setTimeout(() => {
+            div.remove()
+        }, 1500);
+    }
+
+    // показывает элемент с текстом "Hello" рядом с правой верхней частью окна.
+    showNotification({
+        top: 10, // 10px от верхней границы окна (по умолчанию 0px)
+        right: 10, // 10px от правого края окна (по умолчанию 0px)
+        html: "Hello!", // HTML-уведомление
+        className: "welcome" // дополнительный класс для div (необязательно)
+    });
+
+
+</script>
+</body>
+</html>

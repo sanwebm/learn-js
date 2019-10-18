@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Get element coordinates of points relative to the browser window</title>
+    <style>
+        body {
+            padding: 20px 0 0 20px;
+            cursor: pointer;
+        }
+        #field {
+            overflow: hidden;
+            width: 200px;
+            height: 150px;
+            border-top: 10px solid black;
+            border-right: 10px solid gray;
+            border-bottom: 10px solid gray;
+            border-left: 10px solid black;
+            background-color: #00FF00;
+            font: 10px/1.2 monospace;
+        }
+        .triangle-right {
+            position: relative;
+            width: 0;
+            height: 0;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 20px solid red;
+            text-indent: -20px;
+            font: 12px/1 monospace;
+        }
+    </style>
+</head>
+<body>
+<div id="field">
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+</div>
+<div class="triangle-right" style="left:-20px;top:-176px">1</div>
+<div class="triangle-right" style="left:-10px;top:-178px">3</div>
+<div class="triangle-right" style="left:190px;top:-40px">4</div>
+<div class="triangle-right" style="left:200px;top:-42px">2</div>
+
+<script>
+    // rect - DOMRect объект с 8-ми свойствами: left, top, right, bottom, x, y, width, height
+    // var rect = obj.getBoundingClientRect();
+
+    let elem = document.querySelector('#field');
+    let rect = elem.getBoundingClientRect();
+
+    let point1 = [
+                rect.x,
+                rect.y
+                ];
+
+    let point2 = [
+                rect.right,
+                rect.bottom
+                ];
+
+    let point3 = [
+                rect.x + elem.clientLeft,
+                rect.y + elem.clientTop
+                ];
+
+    let point4 = [
+                rect.right - getStyle(elem,"border-right"),
+                rect.bottom - getStyle(elem,"border-bottom")
+                ];
+
+    console.log(point1,point2,point3,point4);
+
+    function getStyle(selector,property){
+        return parseInt( window.getComputedStyle(selector).getPropertyValue(property) )
+    }
+
+</script>
+</body>
+</html>

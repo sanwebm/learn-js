@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>sortedTableByName</title>
+    <style>
+        table {
+            border: 1px solid grey;
+        }
+        th,td {
+            border: 1px solid grey;
+            padding: .5em;
+            font-weight: bold;
+        }
+        th {
+            background-color: #eee;
+            border-bottom: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Возраст</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>John</td>
+            <td>Smith</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td>Pete</td>
+            <td>Brown</td>
+            <td>15</td>
+        </tr>
+        <tr>
+            <td>Ann</td>
+            <td>Lee</td>
+            <td>5</td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+
+    let table = document.querySelector('table');
+
+    let sortedRows = Array.from(table.rows)
+                    .slice(1)
+                    .sort( (a,b) => {
+                        if ( a.cells[0].innerHTML > b.cells[0].innerHTML ) {
+                            return 1
+                        }
+                        if ( a.cells[0].innerHTML < b.cells[0].innerHTML ) {
+                            return -1
+                        }
+                        if ( a.cells[0].innerHTML === b.cells[0].innerHTML ) {
+                            return 0
+                        }
+                    });
+
+    table.tBodies[0].append(...sortedRows);
+
+
+</script>
+
+</body>
+</html>

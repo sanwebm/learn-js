@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ballToCenterOfField</title>
+    <style>
+        #field {
+            width: 200px;
+            border: 10px groove black;
+            background-color: #00FF00;
+            position: relative;
+        }
+
+        #ball {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div id="field">
+    <img src="https://en.js.cx/clipart/ball.svg" id="ball"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+</div>
+<script>
+
+    let ball = document.querySelector('#ball');
+    let parentId = ball.offsetParent.id;
+    let field = document.querySelector('#'+parentId);
+
+    let parentWidth = document.querySelector('#'+parentId).offsetWidth;
+    let parentHeight = document.querySelector('#'+parentId).offsetHeight;
+
+    let ballWidth = ball.offsetWidth;
+    let ballHeight = ball.offsetHeight;
+
+    let verticalCenterField = getCenter(parentHeight);
+    let horizontalCenterField = getCenter(parentWidth);
+
+    let ballHalfWidth  = getCenter(ballWidth);
+    let ballHalfHeight  = getCenter(ballHeight);
+
+    let ballPositionY = verticalCenterField - ballHalfHeight;
+    let ballPositionX = horizontalCenterField - ballHalfWidth;
+
+    // Minus border of a parent(#field) clientTop and clientLeft
+    ball.style.top = ballPositionY - field.clientTop + 'px';
+    ball.style.left = ballPositionX - field.clientLeft + 'px';
+
+    // Getting rid of the infelicity with floating point after division by 2
+    function getCenter(num){
+        return (  (num - (num % 2)) / 2)
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ColorWatch with setInterval</title>
+</head>
+<style>
+span:nth-child(1){color: red}
+span:nth-child(2){color: green}
+span:nth-child(3){color: blue}
+</style>
+<body>
+<div id="clock">
+    <span>hh</span>:<span>mm</span>:<span>ss</span>
+</div>
+<div>
+    <input type="button" value="Старт" id="clock_start">
+    <input type="button" value="Стоп" id="clock_stop">
+</div>
+
+<script>
+
+    function update() {
+
+        let clockFace = [...document.querySelectorAll('span')];
+
+        let date = new Date();
+
+        let hours = date.getHours();
+        if (hours < 10) hours = '0' + hours;
+        clockFace[0].innerHTML = hours;
+
+        let minutes = date.getMinutes();
+        if (minutes < 10) minutes = '0' + minutes;
+        clockFace[1].innerHTML = minutes;
+
+        let seconds = date.getSeconds();
+        if (seconds < 10) seconds = '0' + seconds;
+        clockFace[2].innerHTML = seconds;
+    }
+
+    let timer;
+
+    function clockStart() { // запустить часы
+        timer = setInterval(update, 1000);
+        update(); // (*)
+    }
+
+    function clockStop() {
+        clearInterval(timer);
+        timer = null;
+    }
+
+    clockStart();
+
+    clock_start.onclick = function() {
+        clockStart();
+    };
+
+    clock_stop.onclick = function() {
+        clockStop();
+    };
+
+</script>
+</body>
+</html>
