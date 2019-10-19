@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Drop Down Menu</title>
+    <style>
+        span{
+            font-size: 18px;
+            cursor: pointer;
+        }
+        span.clicked::before{
+            content: '▶ ';
+            display: inline-block;
+            transform:rotate(90deg);
+        }
+        span::before{
+            content: '▶ ';
+            display: inline-block;
+            color: green;
+            transition: transform .4s ease;
+        }
+        ul{
+            padding-left: 18px;
+            margin: 0;
+            list-style: none;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<span id="menu">Сладости (нажми меня)!</span>
+<ul>
+    <li>Пирожное</li>
+    <li>Пончик</li>
+    <li>Мёд</li>
+</ul>
+<script>
+    let target = document.getElementById("menu");
+    let ul = document.querySelector("ul");
+
+    target.addEventListener("click", openMenu);
+
+    function openMenu(event){
+        if ( target.classList.contains("clicked") ){
+            target.classList.remove("clicked");
+            ul.style.display = "none";
+            return
+        }
+        target.classList.add("clicked");
+        ul.style.display = "block";
+    }
+</script>
+</body>
+</html>
