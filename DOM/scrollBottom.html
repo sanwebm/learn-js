@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Count ScrollBottom</title>
+    <style>
+        div{
+            width: 300px;
+            height: 150px;
+            padding: 20px;
+            border: 25px solid #e2e2e2;
+            overflow: auto;
+        }
+    </style>
 </head>
-<style>
-    div{
-        width: 300px;
-        height: 150px;
-        padding: 20px;
-        border: 25px solid #e2e2e2;
-        overflow: auto;
-    }
-</style>
 <body>
     <div id="myScroll">
         Но с getComputedStyle(elem).width ситуация иная. Некоторые браузеры (например, Chrome) возвращают реальную внутреннюю ширину с вычетом ширины полосы прокрутки, а некоторые (например, Firefox) – именно CSS-свойство (игнорируя полосу прокрутки). Эти кроссбраузерные отличия – ещё один повод не использовать getComputedStyle, а использовать свойства-метрики.

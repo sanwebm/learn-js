@@ -23,12 +23,14 @@
 </div>
 <script>
 
-    let ball = document.querySelector('#ball');
-    let parentId = ball.offsetParent.id;
-    let field = document.querySelector('#'+parentId);
+    window.addEventListener("load", ballToCenter);
 
-    let parentWidth = document.querySelector('#'+parentId).offsetWidth;
-    let parentHeight = document.querySelector('#'+parentId).offsetHeight;
+    function ballToCenter(){
+    let ball = document.querySelector('#ball');
+    let field = document.querySelector('#field');
+
+    let parentWidth = field.offsetWidth;
+    let parentHeight = field.offsetHeight;
 
     let ballWidth = ball.offsetWidth;
     let ballHeight = ball.offsetHeight;
@@ -46,11 +48,12 @@
     ball.style.top = ballPositionY - field.clientTop + 'px';
     ball.style.left = ballPositionX - field.clientLeft + 'px';
 
-    // Getting rid of the infelicity with floating point after division by 2
-    function getCenter(num){
+        // Getting rid of the infelicity with floating point after division by 2
+        function getCenter(num){
         return (  (num - (num % 2)) / 2)
-    }
+        }
 
+    }
 </script>
 </body>
 </html>

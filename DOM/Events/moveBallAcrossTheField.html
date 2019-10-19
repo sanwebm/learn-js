@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>moveBallAcrossTheField</title>
+    <style>
+        #field {
+            width: 200px;
+            height: 150px;
+            border: 10px solid black;
+            background-color: #00FF00;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body style="height:2000px">
+
+Нажмите на поле для перемещения мяча.
+<br> Мяч не должен выходить за границы поля.
+
+<div id="field">
+    <img src="https://ru.js.cx/clipart/ball.svg" id="ball"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+</div>
+
+<script>
+
+    // wait the DOM and img to load
+    window.addEventListener("load", ballToClickCoords);
+
+    function ballToClickCoords(){
+        let ball = document.querySelector('#ball');
+        let field = document.querySelector('#field');
+
+        // Prepare to work with absolute inside relative elements
+        field.style.cursor = "pointer";
+        field.style.position = "relative";
+        ball.style.position = "absolute";
+
+        // Set default values for transition
+        ball.style.left = "0";
+        ball.style.top = "0";
+
+        // Set transition properties
+        ball.style.transitionProperty = "top,left";
+        ball.style.transitionDuration = "1s";
+        ball.style.transitionTimingFunction = "ease";
+        ball.style.transitionDelay = "0s";
+
+        // Set the field with listener on click
+        field.addEventListener("click", moveBall);
+
+        function moveBall(event){
+            // Get click coords
+            let clickX = event.clientX;
+            let clickY = event.clientY;
+
+            let rect = field.getBoundingClientRect();
+
+            // Get coords inside the field
+            let fieldX = clickX - rect.left;
+            let fieldY = clickY - rect.top;
+
+            // Get border's of the field
+            let fieldLeftBorder = getStyle(field,"border-left");
+            let fieldTopBorder = getStyle(field,"border-top");
+            let fieldRightBorder = getStyle(field,"border-right");
+            let fieldBottomBorder = getStyle(field,"border-bottom");
+
+            // Set ball position
+            let ballPosY = fieldY - ball.offsetHeight/2 - fieldTopBorder;
+            let ballPosX = fieldX - ball.offsetWidth/2 - fieldLeftBorder;
+
+            // Check vertical target
+            let ballYAllowed = field.offsetHeight - fieldBottomBorder - fieldTopBorder - ball.offsetHeight;
+
+            if (ballPosY < 0){
+                ballPosY = 0;
+            }
+            else if (ballPosY > ballYAllowed ){
+                ballPosY = ballYAllowed;
+            }
+
+            // Check horizontal target
+            let ballXAllowed = field.offsetWidth - fieldRightBorder - fieldLeftBorder - ball.offsetWidth;
+
+            if (ballPosX < 0){
+                ballPosX = 0;
+            }
+            else if (ballPosX > (ballXAllowed) ){
+                ballPosX = field.offsetWidth - fieldRightBorder - fieldLeftBorder - ball.offsetWidth;
+            }
+
+            // Set ball coords
+            ball.style.left = ballPosX + 'px';
+            ball.style.top = ballPosY + 'px';
+
+            function getStyle(selector,property){
+                return parseInt( window.getComputedStyle(selector).getPropertyValue(property) )
+            }
+
+        }
+
+    }
+
+</script>
+</body>
+</html>
