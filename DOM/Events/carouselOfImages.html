@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Carousel of images</title>
+    <style>
+        .carousel{
+            position: relative;
+            width: 390px;
+            padding: 10px 40px;
+            border: 1px solid #ccc;
+        }
+        .arrow {
+            position: absolute;
+            top: 60px;
+            padding: 0;
+            background: #ddd;
+            border-radius: 15px;
+            border: 1px solid gray;
+            font-size: 24px;
+            line-height: 24px;
+            color: #444;
+            display: block;
+        }
+        .arrow:focus {
+            outline: none;
+        }
+        .arrow:hover {
+            background: #ccc;
+            cursor: pointer;
+        }
+        .prev{
+            left: 10px;
+        }
+        .next{
+            right: 10px;
+        }
+        .gallery{
+            overflow: hidden;
+            width: 390px;
+        }
+        .gallery ul {
+            height: 130px;
+            width: 9999px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            font-size: 0;
+            transition: margin-left 1s;
+        }
+        .gallery ul img {
+            width: 130px;
+            height: 130px;
+            display: block;
+        }
+        .gallery ul li {
+            display: inline-block; /* убираем пустое место между элементами списка */
+        }
+    </style>
+</head>
+<body>
+<div id="carousel" class="carousel">
+    <button class="arrow prev">⇦</button>
+    <div class="gallery">
+        <ul>
+            <li><img src="https://ru.js.cx/carousel/1.png"></li>
+            <li><img src="https://ru.js.cx/carousel/2.png"></li>
+            <li><img src="https://ru.js.cx/carousel/3.png"></li>
+            <li><img src="https://ru.js.cx/carousel/4.png"></li>
+            <li><img src="https://ru.js.cx/carousel/5.png"></li>
+            <li><img src="https://ru.js.cx/carousel/6.png"></li>
+            <li><img src="https://ru.js.cx/carousel/7.png"></li>
+            <li><img src="https://ru.js.cx/carousel/8.png"></li>
+            <li><img src="https://ru.js.cx/carousel/9.png"></li>
+            <li><img src="https://ru.js.cx/carousel/10.png"></li>
+        </ul>
+    </div>
+    <button class="arrow next">⇨</button>
+</div>
+<script>
+
+    let width = 130;
+    let count = 3;
+
+    let list = carousel.querySelector('ul');
+    let listElems = carousel.querySelectorAll('li');
+
+    let position = 0;
+
+    carousel.querySelector('.next').onclick = function() {
+        position -= width * count;
+        position = Math.max(position, -width * (listElems.length - count));
+        list.style.marginLeft = position + 'px';
+    };
+
+    carousel.querySelector('.prev').onclick = function() {
+        position += width * count;
+        position = Math.min(position, 0)
+        list.style.marginLeft = position + 'px';
+    };
+</script>
+</body>
+</html>
