@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sort table rows by string or number</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 4px;
+        }
+        th {
+            cursor: pointer;
+        }
+        th:hover {
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+<table id="grid">
+    <thead>
+    <tr>
+        <th data-type="number">Возраст</th>
+        <th data-type="string">Имя</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>5</td>
+        <td>Вася</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Петя</td>
+    </tr>
+    <tr>
+        <td>12</td>
+        <td>Женя</td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>Маша</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>Илья</td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+    let table = document.querySelector('#grid');
+    table.addEventListener('click', sortCheck);
+
+    function sortCheck(event){
+        let  th = event.target;
+
+        if (th.tagName != "TH"){
+            return
+        }
+        sortTable(th.cellIndex, th.dataset.type);
+    }
+
+    function sortTable(colInd, sortType) {
+
+        let rowArr = Array.from(table.rows);
+
+        let sortedRows;
+
+        if (sortType === 'string') {
+            sortedRows = rowArr
+                        .slice(1)
+                        .sort((a, b) => {
+                            if (a.cells[colInd].innerHTML > b.cells[colInd].innerHTML) {
+                                return 1
+                            }
+                            if (a.cells[colInd].innerHTML < b.cells[colInd].innerHTML) {
+                                return -1
+                            }
+                            if (a.cells[colInd].innerHTML === b.cells[colInd].innerHTML) {
+                                return 0
+                            }
+                        });
+        }
+
+        if (sortType === 'number') {
+            sortedRows = rowArr
+                        .slice(1)
+                        .sort((a, b) => {
+                            return a.cells[colInd].innerHTML - b.cells[colInd].innerHTML
+                        });
+        }
+
+        table.tBodies[0].append(...sortedRows);
+    }
+</script>
+</body>
+</html>
