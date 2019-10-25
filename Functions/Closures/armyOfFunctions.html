@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Army of functions</title>
+</head>
+<body>
+<script>
+    function makeArmy() {
+        let shooters = [];
+
+        let i = 0;
+        while (i < 10) {
+            let arr=[]; // Должны сохранить значение i в массив arr с индексом i
+            arr.push(i); // arr[0]===0, arr[1]===1 ...
+            let shooter = function() { // функция shooter
+                 alert( arr[arr.length-1] ); // в процессе обхода цикла ссылаемся на вычесленное значение из массива arr в Scope WHILE
+            };
+            shooters.push(shooter);
+            i++;
+        }
+
+        return shooters;
+    }
+
+    let army = makeArmy();
+
+    army[0]();
+    army[5]();
+
+</script>
+</body>
+</html>

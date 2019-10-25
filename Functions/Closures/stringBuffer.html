@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>String Buffer With clear()</title>
+</head>
+<body>
+<script>
+
+    function makeBuffer(str) {
+        let buf = '';
+
+        function buffer(str) {
+            if (!str) {
+                str = '';
+            }
+            return buf += str;
+        }
+
+        buffer.clear = function() {
+            buf = '';
+        };
+
+        return buffer
+    }
+
+    let buffer = makeBuffer();
+
+    buffer('Замыкания');
+    buffer(' Использовать');
+    buffer.clear();
+    buffer(' Нужно!');
+
+    console.log( buffer() );
+
+</script>
+</body>
+</html>
