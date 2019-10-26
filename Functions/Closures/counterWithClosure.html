@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Counter with closure</title>
+</head>
+<body>
+<script>
+    function makeCounter() {
+        let count = 0;
+
+        function counter() {
+            return count++;
+        }
+
+        counter.set = function(num){
+            return count = num;
+        };
+
+        counter.decrease = function(){
+            return count--;
+        };
+
+        return counter
+    }
+
+    let counter = makeCounter();
+
+    console.log( counter() ); // 1
+    console.log( counter() ); // 2
+    console.log( counter() ); // 3
+    counter.set(10);// установить новое значение счётчика
+    console.log( counter() ); // 10
+    counter.decrease(); // уменьшить значение счётчика на 1
+    console.log( counter() ); // 10 (вместо 11)
+</script>
+</body>
+</html>

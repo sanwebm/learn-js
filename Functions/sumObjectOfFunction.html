@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Object of function, fn sum(5)(2)(-2)(10)</title>
+</head>
+<body>
+<script>
+    function sum(value){
+        let totalSum = value;
+
+        function sub(value){
+            totalSum += value;
+            return sub
+        }
+
+        sub[Symbol.toPrimitive] = function(hint) {
+            // должен вернуть примитивное значение
+            // hint равно чему-то одному из: "string", "number" или "default"
+            return hint === "string" ? `${totalSum}` : totalSum;
+        };
+
+        // можно сразу
+        // sub.toString = function(){
+        //     return totalSum
+        // };
+
+        return sub
+    }
+
+    console.log( sum(1)(2) );
+    console.log( sum(1)(2)(3) );
+    console.log( sum(5)(-1)(2) );
+    console.log( sum(6)(-1)(-2)(-3) );
+    console.log( sum(0)(1)(2)(3)(4)(5) );
+</script>
+</body>
+</html>
