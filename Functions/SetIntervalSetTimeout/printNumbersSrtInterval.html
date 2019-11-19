@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Print numbers with setInterval</title>
+</head>
+<body>
+<script>
+    // Напишите функцию printNumbers(from, to), которая выводит число каждую секунду, начиная от from и заканчивая to.
+    function printNumbers(from, to){
+
+        let start = from;
+        let timerId = setInterval(function(){
+            console.log(start);
+            if(start === to){
+                clearInterval(timerId);
+            }
+            start++;
+        },1000);
+
+    }
+
+    printNumbers(1, 5);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sum of numbers to a given</title>
+</head>
+<body>
+<script>
+
+    (function(){
+        //Using a loop
+        function sumTo(n){
+            let result = 0;
+            for(let i=n; i > 0; i-- ){
+                result += i;
+            }
+            return result
+        }
+
+        // console.log( sumTo(0) ); // 0
+        // console.log( sumTo(1) ); // 1
+        // console.log( sumTo(2) ); // 3
+        // console.log( sumTo(3) ); // 6
+        // console.log( sumTo(4) ); // 10
+
+        function sumToRecursion(n){
+            let result = 0;
+            if ( n === 0){
+                return result
+            }
+            result += n;
+            return result + sumToRecursion(n-1);
+        }
+
+        // console.log( sumToRecursion(3) ); // 6
+        // console.log( sumToRecursion(4) ); // 10
+
+        // Arithmetic progression (a1+n)/2 *n
+        function sumToArithmeticProgression(n){
+            return ( (1+n)/2 ) * n;
+        }
+
+        console.log( sumToArithmeticProgression(0) ); // 0
+        console.log( sumToArithmeticProgression(1) ); // 1
+        console.log( sumToArithmeticProgression(2) ); // 3
+        console.log( sumToArithmeticProgression(3) ); // 6
+        console.log( sumToArithmeticProgression(4) ); // 10
+
+    })();
+</script>
+</body>
+</html>

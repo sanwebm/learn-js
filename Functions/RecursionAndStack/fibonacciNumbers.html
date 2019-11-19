@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fibonacci numbers</title>
+</head>
+<body>
+<script>
+    (function(){
+
+        function fib(n){
+
+            const isFirstTwo = (n === 1) || (n === 2);
+
+            if ( isFirstTwo ){
+                return 1
+            }
+
+            let list = { value: 1 };
+                list.next = { value: 1 };
+
+            for(let i=3; i<=n; i++){
+                list = { value: list.value + list.next.value, next: list };
+            }
+
+            //list.next.next = { value: 3 };
+            //list.next.next.next = { value: 4 };
+
+            // добавление нового элемента в список
+            //list = { value: "new item", next: list };
+            return list.value
+        }
+        console.log(fib(1));
+        console.log(fib(2));
+        console.log(fib(3));
+        console.log(fib(7));
+        console.log(fib(77));
+    })();
+</script>
+</body>
+</html>

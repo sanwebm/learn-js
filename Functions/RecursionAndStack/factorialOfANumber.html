@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>factorial of a number</title>
+</head>
+<body>
+<script>
+    (function(){
+        function factorial(n){
+            let result = 1;
+            if ( n === 1){
+                return result
+            }
+            result *= n;
+            return result * factorial(n-1);
+        }
+        console.log( factorial(2) ); // 2
+        console.log( factorial(3) ); // 6
+        console.log( factorial(4) ); // 24
+        console.log( factorial(5) ); // 120
+    })();
+</script>
+</body>
+</html>
