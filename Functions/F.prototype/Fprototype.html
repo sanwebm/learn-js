@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>F.prototype</title>
+</head>
+<body>
+<script>
+    // F.prototype
+    function User(first,last,age){
+        this.name = {
+            first,
+            last
+        };
+            this.age = age;
+    }
+    User.prototype.greeting = function(){
+        console.log(`Hi, ${this.name.first} ${this.name.last}`);
+    };
+
+    let u1 = new User('Vlad','Solo', '38');
+    u1.greeting();
+
+    function Admin(first,last,age,pass){
+        User.call(this,first,last,age);
+        this.pass = pass;
+    }
+    Admin.prototype = Object.create(User.prototype);
+    Admin.prototype.constructor = Admin;
+
+    Admin.prototype.greeting = function(){
+        User.prototype.greeting.call(this);
+        console.log(`My pass is ${this.pass}`);
+    };
+
+    let a1 = new Admin('Kirill','Solo','13','myPass');
+    a1.greeting();
+
+    function SuperAdmin(first,last,age,pass,key){
+        Admin.call(this,first,last,age,pass);
+        this.key = key;
+    }
+
+    SuperAdmin.prototype = Object.create(Admin.prototype);
+    SuperAdmin.prototype.constructor = SuperAdmin;
+
+    SuperAdmin.prototype.greeting = function(){
+        Admin.prototype.greeting.call(this);
+        console.log(`My key is ${this.key}`);
+    };
+
+    let s1 = new SuperAdmin('Lena','Solo','37','Lena Pass', 'KEY');
+
+    s1.greeting();
+
+</script>
+</body>
+</html>
