@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fn decorator debounce</title>
+</head>
+<body>
+<script>
+    //Декоратор debounce
+    //Результатом декоратора debounce(f, ms) должна быть обёртка, которая передаёт вызов f не более одного раза в ms миллисекунд.
+    //Другими словами, когда мы вызываем debounce, это гарантирует, что все остальные вызовы будут игнорироваться в течение ms.
+
+    function debounce(fn,ms){
+
+        return function(...args){
+            let now = +new Date;
+            let future = debounce.nextCallTime;
+
+            if (future){
+                if (future > now){
+                    return
+                }
+            }
+
+            debounce.nextCallTime = now + ms;
+
+            return fn.call(this, args.join());
+        }
+
+    }
+
+    let f = debounce(console.log, 1000);
+
+    f(1); // выполняется немедленно
+    f(2); // проигнорирован
+
+    setTimeout( () => f(3), 100); // проигнорирован (прошло только 100 мс)
+    setTimeout( () => f(4), 1100); // выполняется
+    setTimeout( () => f(5), 1500); // проигнорирован (прошло только 400 мс от последнего вызова)
+</script>
+</body>
+</html>
