@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Voter</title>
+    <script src="https://cdn.polyfill.io/v1/polyfill.js?features=Element.prototype.closest"></script>
+    <style>
+        .voter {
+            font-family: 'DejaVu Sans Mono', 'Lucida Console', 'Menlo', 'Monaco', monospace;
+            font-size: 18px;
+        }
+
+        .up,
+        .down {
+            cursor: pointer;
+            color: blue;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="voter" class="voter">
+    <span class="down">—</span>
+    <span class="vote">0</span>
+    <span class="up">+</span>
+</div>
+
+<script>
+    function Voter(options) {
+        let {elem} = options;
+        let voteTag = elem.querySelector('.vote');
+
+        this.setVote = function(votes){
+            voteTag.innerHTML = votes;
+        };
+
+        elem.onclick = function(event){
+            if (event.target.closest('.down')){
+                votesDecrease();
+            }
+            if(event.target.closest('.up')){
+                votesIncrease();
+            }
+        };
+
+        elem.onmousedown = function(){
+            return false;
+        };
+
+        function votesIncrease(){
+            voteTag.innerHTML = Number(voteTag.innerHTML) + 1;
+        }
+
+        function votesDecrease(){
+            voteTag.innerHTML = Number(voteTag.innerHTML) - 1;
+        }
+
+    }
+
+/*    Voter.prototype.setVote = function(value){
+           const votes = Number(value);
+           if (Number.isNaN(votes)) {
+               return;
+           }
+            Voter.votes = votes;
+           //this.renderVotes();
+    };*/
+
+    let voter = new Voter({
+        elem: document.getElementById('voter')
+    });
+
+    voter.setVote(1);
+
+</script>
+
+</body>
+
+</html>

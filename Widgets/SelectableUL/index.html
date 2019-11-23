@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Selectable UL</title>
+    <style>
+        .selected {
+            background: #0f0;
+        }
+
+        li {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+Кликни на элемент списка, чтобы выделить его.
+<br>
+
+<ul id="ul">
+    <li>Кристофер Робин</li>
+    <li>Винни Пух</li>
+    <li>Тигра</li>
+    <li>Кенга</li>
+    <li>Кролик. Просто Кролик.</li>
+</ul>
+
+<button onclick="alert(listSelect.getSelected())">listSelect.getSelected()</button>
+
+<script>
+
+    function ListSelect(options){
+        let {elem} = options;
+        let lastClicked;
+
+        elem.onmousedown = function() {
+            return false;
+        };
+
+        elem.onclick = function (event) {
+
+            let li = event.target.closest('li');
+
+            if (!li) {
+                return
+            }
+
+            if (event.ctrlKey || event.metaKey) { // Ctrl or Command
+                toggleOne(li);
+            }
+            else if (event.shiftKey) {
+                selectFromLastClicked(li);
+            }
+            else{
+                selectOne(li);
+            }
+
+            lastClicked = li;
+        };
+
+        function selectFromLastClicked(li){
+
+            let endLi = lastClicked || elem.children[0];
+            let startLi = li;
+
+            if (startLi === endLi) {
+                return
+            }
+
+            //let lis = [].slice.call(elem.querySelectorAll('li'));
+            let lis = [...elem.querySelectorAll('li')];
+
+            let startIndex = lis.indexOf(startLi);
+            let endIndex =  lis.indexOf(endLi);
+
+
+            if ( startIndex > endIndex ) {
+                for (let i = startIndex; i >= endIndex; i--){
+                    lis[i].classList.add('selected');
+                }
+            }
+            if ( startIndex < endIndex ) {
+                for (let i = startIndex; i <= endIndex; i++){
+                    lis[i].classList.add('selected');
+                }
+            }
+
+        }
+
+        function toggleOne(elem){
+            elem.classList.toggle('selected');
+        }
+
+        function selectOne(elem){
+            deselectAll();
+            elem.classList.add('selected');
+        }
+
+        function deselectAll(){
+            //let lis = [].slice.call(elem.querySelectorAll('li'));
+            [...elem.querySelectorAll('li')].map( el => {
+                            el.classList.remove('selected')
+            });
+        }
+
+        this.getSelected = function(){
+            return [...elem.querySelectorAll('.selected')].map( el => el.textContent);
+        };
+
+    }
+
+    let listSelect = new ListSelect({
+        elem: document.querySelector('ul')
+    });
+
+    //listSelect.getSelected()
+
+</script>
+
+</body>
+</html>
